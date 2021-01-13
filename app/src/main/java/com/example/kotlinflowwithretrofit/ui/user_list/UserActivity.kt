@@ -1,22 +1,22 @@
-package com.example.kotlinflowwithretrofit.ui.main
+package com.example.kotlinflowwithretrofit.ui.user_list
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinflowwithretrofit.R
 import com.example.kotlinflowwithretrofit.common.Result
-import com.example.kotlinflowwithretrofit.ui.main.model.data_class.User
+import com.example.kotlinflowwithretrofit.ui.user_list.model.data_class.User
 import com.example.kotlinflowwithretrofit.ui.BaseActivity
-import com.example.kotlinflowwithretrofit.ui.main.adapter.DataAdapter
-import kotlinx.android.synthetic.main.activity_main.*
+import com.example.kotlinflowwithretrofit.ui.user_list.adapter.UserAdapter
+import kotlinx.android.synthetic.main.activity_user.*
 
-class MainActivity : BaseActivity() {
+class UserActivity : BaseActivity() {
 
     private val TAG = "MainActivity"
-    private lateinit var viewModel: MainActivityViewModel
+    private lateinit var viewModel: UserActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_user)
 
         initComponent()
         observeLiveData()
@@ -26,7 +26,7 @@ class MainActivity : BaseActivity() {
         hideView(progressBar)
         hideView(emptyView)
 
-        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        viewModel = ViewModelProvider(this)[UserActivityViewModel::class.java]
     }
 
     private fun observeLiveData() {
@@ -67,7 +67,7 @@ class MainActivity : BaseActivity() {
     private fun showData(data: List<User>) {
         hideView(emptyView)
         showView(rvRecycler)
-        rvRecycler.adapter = DataAdapter(data)
+        rvRecycler.adapter = UserAdapter(data)
     }
 
 }

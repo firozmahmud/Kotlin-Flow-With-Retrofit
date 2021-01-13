@@ -1,10 +1,10 @@
 package com.example.kotlinflowwithretrofit.network
 
-import com.example.kotlinflowwithretrofit.ui.main.model.data_class.User
+import com.example.kotlinflowwithretrofit.ui.user_list.model.data_class.User
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface Api {
+interface UserApi {
     @GET("users")
     suspend fun getPost(): Response<List<User>>
 }

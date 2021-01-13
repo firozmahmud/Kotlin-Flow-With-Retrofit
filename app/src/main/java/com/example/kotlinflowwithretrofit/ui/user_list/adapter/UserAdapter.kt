@@ -1,16 +1,16 @@
-package com.example.kotlinflowwithretrofit.ui.main.adapter
+package com.example.kotlinflowwithretrofit.ui.user_list.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinflowwithretrofit.R
-import com.example.kotlinflowwithretrofit.ui.main.model.data_class.User
+import com.example.kotlinflowwithretrofit.ui.user_list.model.data_class.User
 import kotlinx.android.synthetic.main.item_data.view.*
 
 
-class DataAdapter(private var dataList: List<User>) :
-    RecyclerView.Adapter<DataAdapter.ViewHolder>() {
+class UserAdapter(private var dataList: List<User>) :
+    RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_data, parent, false)

@@ -10,8 +10,8 @@ object ApiClient {
             .build()
     }
 
-    val api: Api by lazy {
-        retrofit.create(Api::class.java)
+    val api: UserApi by lazy {
+        retrofit.create(UserApi::class.java)
     }
 
 }

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinFlowWithRetrofit">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.user_list.UserActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>

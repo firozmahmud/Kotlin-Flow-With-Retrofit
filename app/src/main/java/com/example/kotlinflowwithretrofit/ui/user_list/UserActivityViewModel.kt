@@ -1,17 +1,17 @@
-package com.example.kotlinflowwithretrofit.ui.main
+package com.example.kotlinflowwithretrofit.ui.user_list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlinflowwithretrofit.common.Result
-import com.example.kotlinflowwithretrofit.ui.main.model.PostRepository
-import com.example.kotlinflowwithretrofit.ui.main.model.data_class.User
+import com.example.kotlinflowwithretrofit.ui.user_list.model.UserRepository
+import com.example.kotlinflowwithretrofit.ui.user_list.model.data_class.User
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class MainActivityViewModel : ViewModel() {
+class UserActivityViewModel : ViewModel() {
 
     var postLiveData: MutableLiveData<Result> = MutableLiveData()
 
@@ -25,7 +25,7 @@ class MainActivityViewModel : ViewModel() {
 
             postLiveData.value = Result.Loading(true)
 
-            PostRepository.getPost()
+            UserRepository.getPost()
                 .catch { error ->
                     postLiveData.value = Result.Loading(false)
                     handleUserDataError(error)
