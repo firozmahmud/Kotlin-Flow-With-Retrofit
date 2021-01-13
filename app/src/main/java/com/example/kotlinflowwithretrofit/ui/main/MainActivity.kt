@@ -56,6 +56,11 @@ class MainActivity : BaseActivity() {
 
     private fun handleSuccessResponse(data: Any) {
         val dataList = data as List<User>
+
+        if (dataList.isEmpty()) {
+            showView(emptyView)
+            return
+        }
         showData(dataList)
     }
 
