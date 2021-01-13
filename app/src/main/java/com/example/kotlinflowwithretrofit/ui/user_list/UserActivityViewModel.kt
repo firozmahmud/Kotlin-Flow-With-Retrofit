@@ -13,8 +13,7 @@ import retrofit2.Response
 
 class UserActivityViewModel : ViewModel() {
 
-    var userListLiveData: MutableLiveData<com.example.kotlinflowwithretrofit.common.NetworkResult> =
-        MutableLiveData()
+    var userListLiveData: MutableLiveData<NetworkResult> = MutableLiveData()
 
     init {
         getUserList()
@@ -29,7 +28,7 @@ class UserActivityViewModel : ViewModel() {
             UserRepository.getUsers()
                 .catch { error ->
                     userListLiveData.value = NetworkResult.Loading(false)
-                    handleGetUserListError(error)
+                    handleGetUserListFailure(error)
                 }
                 .collect { response ->
                     userListLiveData.value = NetworkResult.Loading(false)
@@ -39,21 +38,17 @@ class UserActivityViewModel : ViewModel() {
 
     }
 
+    private fun handleGetUserListFailure(error: Throwable) {
+        userListLiveData.value =
+            NetworkResult.Error(errorMessage = error.localizedMessage ?: "Unknown Error")
+    }
+
     private fun handleGetUserListResponse(response: Response<List<User>>) {
-        if (response.isSuccessful) {
-            if (response.body() == null) {
-                userListLiveData.value = NetworkResult.Error("Body is null")
-            } else {
-                userListLiveData.value = NetworkResult.Success(response.body()!!)
-            }
+        if (response.isSuccessful && !response.body().isNullOrEmpty()) {
+            userListLiveData.value = NetworkResult.Success(response.body()!!)
         } else {
             userListLiveData.value =
                 NetworkResult.Error("Message : ${response.message()} , Code : ${response.code()}")
         }
-    }
-
-    private fun handleGetUserListError(error: Throwable) {
-        userListLiveData.value =
-            NetworkResult.Error(errorMessage = error.localizedMessage ?: "Unknown Error")
     }
 }

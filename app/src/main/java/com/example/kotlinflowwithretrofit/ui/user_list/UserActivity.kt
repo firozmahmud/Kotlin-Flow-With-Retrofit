@@ -59,6 +59,7 @@ class UserActivity : BaseActivity() {
 
         if (dataList.isEmpty()) {
             showView(emptyView)
+            hideView(rvRecycler)
             return
         }
         showData(dataList)
