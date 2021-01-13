@@ -1,6 +1,6 @@
-package com.example.kotlinflowwithretrofit.model
+package com.example.kotlinflowwithretrofit.ui.main.model
 
-import com.example.kotlinflowwithretrofit.model.data_class.Post
+import com.example.kotlinflowwithretrofit.ui.main.model.data_class.Post
 import com.example.kotlinflowwithretrofit.network.ApiClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

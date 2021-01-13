@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinflowwithretrofit.R
-import com.example.kotlinflowwithretrofit.model.data_class.Post
+import com.example.kotlinflowwithretrofit.ui.main.model.data_class.Post
 import kotlinx.android.synthetic.main.item_data.view.*
 
 

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinflowwithretrofit.R
-import com.example.kotlinflowwithretrofit.model.data_class.Post
+import com.example.kotlinflowwithretrofit.ui.main.model.data_class.Post
 import com.example.kotlinflowwithretrofit.ui.BaseActivity
 import com.example.kotlinflowwithretrofit.ui.main.adapter.DataAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,14 +47,9 @@ class MainActivity : BaseActivity() {
         })
     }
 
-    private fun showData(data: List<Post>?) {
-        if (!data.isNullOrEmpty()) {
-            hideEmptyView(emptyView)
-            rvRecycler.adapter = DataAdapter(data)
-        } else {
-            showToast("No data available")
-            showEmptyView(emptyView)
-        }
+    private fun showData(data: List<Post>) {
+        hideEmptyView(emptyView)
+        rvRecycler.adapter = DataAdapter(data)
     }
 
 
