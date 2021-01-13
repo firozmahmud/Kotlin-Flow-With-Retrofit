@@ -26,7 +26,8 @@ class MainActivityViewModel : ViewModel() {
             PostRepository.getPost()
                 .catch { error ->
                     postLiveData.value = Result.Loading(false)
-                    postLiveData.value = Result.Error(errorMessage = error.localizedMessage ?: "Unknown Error")
+                    postLiveData.value =
+                        Result.Error(errorMessage = error.localizedMessage ?: "Unknown Error")
                 }
                 .collect { data ->
                     if (data.isNullOrEmpty()) {
@@ -35,8 +36,9 @@ class MainActivityViewModel : ViewModel() {
                         postLiveData.value = Result.Success(data)
                     }
                     postLiveData.value = Result.Loading(false)
-                }
 
+                }
         }
+
     }
 }

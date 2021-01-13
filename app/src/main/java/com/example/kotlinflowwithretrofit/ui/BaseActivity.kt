@@ -1,28 +1,19 @@
 package com.example.kotlinflowwithretrofit.ui
 
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 open class BaseActivity : AppCompatActivity() {
 
-    fun showProgressBar(progressBar: ProgressBar) {
-        progressBar.visibility = View.VISIBLE
+    fun showView(view: View) {
+        view.visibility = VISIBLE
     }
 
-    fun hideProgressBar(progressBar: ProgressBar) {
-        progressBar.visibility = View.GONE
-    }
-
-
-    fun showEmptyView(emptyView: TextView) {
-        emptyView.visibility = View.VISIBLE
-    }
-
-    fun hideEmptyView(emptyView: TextView) {
-        emptyView.visibility = View.GONE
+    fun hideView(view: View) {
+        view.visibility = GONE
     }
 
     fun showToast(message: String, isLong: Boolean = false) {

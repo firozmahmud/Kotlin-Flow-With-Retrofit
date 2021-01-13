@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinflowwithretrofit.R
-import com.example.kotlinflowwithretrofit.ui.main.model.data_class.Post
+import com.example.kotlinflowwithretrofit.ui.main.model.data_class.User
 import kotlinx.android.synthetic.main.item_data.view.*
 
 
-class DataAdapter(private var dataList: List<Post>) :
+class DataAdapter(private var dataList: List<User>) :
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,8 +18,8 @@ class DataAdapter(private var dataList: List<Post>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = dataList[position].body
-        holder.itemView.tvData.text = data
+        holder.itemView.tvName.text = dataList[position].name
+        holder.itemView.tvEmail.text = dataList[position].email
     }
 
     override fun getItemCount(): Int {
