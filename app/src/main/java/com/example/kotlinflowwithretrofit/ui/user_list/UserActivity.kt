@@ -13,6 +13,7 @@ class UserActivity : BaseActivity() {
 
     private val TAG = "MainActivity"
     private lateinit var viewModel: UserActivityViewModel
+    private lateinit var userAdapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +26,8 @@ class UserActivity : BaseActivity() {
     private fun initComponent() {
         hideView(progressBar)
         hideView(emptyView)
-
+        userAdapter = UserAdapter()
+        rvRecycler.adapter = userAdapter
         viewModel = ViewModelProvider(this)[UserActivityViewModel::class.java]
     }
 
@@ -68,7 +70,7 @@ class UserActivity : BaseActivity() {
     private fun showData(data: List<User>) {
         hideView(emptyView)
         showView(rvRecycler)
-        rvRecycler.adapter = UserAdapter(data)
+        userAdapter.updateList(data)
     }
 
 }

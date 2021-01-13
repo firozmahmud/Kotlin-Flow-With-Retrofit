@@ -9,8 +9,10 @@ import com.example.kotlinflowwithretrofit.ui.user_list.model.data_class.User
 import kotlinx.android.synthetic.main.item_data.view.*
 
 
-class UserAdapter(private var dataList: List<User>) :
-    RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+
+    private var dataList: List<User> = ArrayList()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_data, parent, false)
@@ -26,6 +28,13 @@ class UserAdapter(private var dataList: List<User>) :
         return dataList.size
     }
 
+    fun updateList(newList: List<User>) {
+        dataList = newList
+        notifyItemRangeChanged(0, itemCount)
+    }
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
 }
+
+
