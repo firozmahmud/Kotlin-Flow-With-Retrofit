@@ -1,9 +1,9 @@
 package com.example.kotlinflowwithretrofit.ui.main
 
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinflowwithretrofit.R
+import com.example.kotlinflowwithretrofit.common.Result
 import com.example.kotlinflowwithretrofit.ui.main.model.data_class.Post
 import com.example.kotlinflowwithretrofit.ui.BaseActivity
 import com.example.kotlinflowwithretrofit.ui.main.adapter.DataAdapter
@@ -30,27 +30,37 @@ class MainActivity : BaseActivity() {
 
     private fun observeLiveData() {
 
-        viewModel.isLoading.observe(this, Observer { isLoading ->
-            when (isLoading) {
-                true -> showProgressBar(progressBar)
-                false -> hideProgressBar(progressBar)
+        viewModel.postLiveData.observe(this, { result ->
+
+            when (result) {
+                is Result.Loading -> handleProgressBar(result.isLoading)
+                is Result.Error -> handleErrorResponse(result.errorMessage)
+                is Result.Success -> handleSuccessResponse(result.data)
             }
-        })
 
-        viewModel.postDataError.observe(this, Observer { errorMessage ->
-            showEmptyView(emptyView)
-            showToast(errorMessage, true)
         })
+    }
 
-        viewModel.postData.observe(this, Observer { data ->
-            showData(data)
-        })
+    private fun handleProgressBar(isLoading: Boolean) {
+        when (isLoading) {
+            true -> showProgressBar(progressBar)
+            false -> hideProgressBar(progressBar)
+        }
+    }
+
+    private fun handleErrorResponse(errorMessage: String) {
+        showEmptyView(emptyView)
+        showToast(errorMessage, true)
+    }
+
+    private fun handleSuccessResponse(data: Any) {
+        val dataList = data as List<Post>
+        showData(dataList)
     }
 
     private fun showData(data: List<Post>) {
         hideEmptyView(emptyView)
         rvRecycler.adapter = DataAdapter(data)
     }
-
 
 }
