@@ -3,7 +3,7 @@ package com.example.kotlinflowwithretrofit.ui.user_list
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.example.kotlinflowwithretrofit.R
-import com.example.kotlinflowwithretrofit.common.Result
+import com.example.kotlinflowwithretrofit.common.NetworkResponse
 import com.example.kotlinflowwithretrofit.ui.user_list.model.data_class.User
 import com.example.kotlinflowwithretrofit.ui.BaseActivity
 import com.example.kotlinflowwithretrofit.ui.user_list.adapter.UserAdapter
@@ -31,11 +31,11 @@ class UserActivity : BaseActivity() {
 
     private fun observeLiveData() {
 
-        viewModel.postLiveData.observe(this, { result ->
+        viewModel.userListLiveData.observe(this, { result ->
             when (result) {
-                is Result.Loading -> handleProgressBar(result.isLoading)
-                is Result.Error -> handleErrorResponse(result.errorMessage)
-                is Result.Success -> handleSuccessResponse(result.data)
+                is NetworkResponse.Loading -> handleProgressBar(result.isLoading)
+                is NetworkResponse.Error -> handleErrorResponse(result.errorMessage)
+                is NetworkResponse.Success -> handleSuccessResponse(result.data)
             }
 
         })

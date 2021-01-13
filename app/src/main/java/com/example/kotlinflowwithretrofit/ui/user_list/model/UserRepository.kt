@@ -11,9 +11,9 @@ import retrofit2.Response
 class UserRepository {
 
     companion object {
-        fun getPost(): Flow<Response<List<User>>> = flow {
+        fun getUsers(): Flow<Response<List<User>>> = flow {
             // while (true) {
-            val response = ApiClient.api.getPost()
+            val response = ApiClient.api.getUsers()
             emit(response)
             // delay(10000)  // We need refresh in every 10 second
             // }

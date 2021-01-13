@@ -3,7 +3,7 @@ package com.example.kotlinflowwithretrofit.ui.user_list
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kotlinflowwithretrofit.common.Result
+import com.example.kotlinflowwithretrofit.common.NetworkResponse
 import com.example.kotlinflowwithretrofit.ui.user_list.model.UserRepository
 import com.example.kotlinflowwithretrofit.ui.user_list.model.data_class.User
 import kotlinx.coroutines.flow.catch
@@ -13,41 +13,47 @@ import retrofit2.Response
 
 class UserActivityViewModel : ViewModel() {
 
-    var postLiveData: MutableLiveData<Result> = MutableLiveData()
+    var userListLiveData: MutableLiveData<com.example.kotlinflowwithretrofit.common.NetworkResponse> =
+        MutableLiveData()
 
     init {
-        getPostData()
+        getUserList()
     }
 
-    private fun getPostData() {
+    private fun getUserList() {
 
         viewModelScope.launch {
 
-            postLiveData.value = Result.Loading(true)
+            userListLiveData.value = NetworkResponse.Loading(true)
 
-            UserRepository.getPost()
+            UserRepository.getUsers()
                 .catch { error ->
-                    postLiveData.value = Result.Loading(false)
-                    handleUserDataError(error)
+                    userListLiveData.value = NetworkResponse.Loading(false)
+                    handleGetUserListError(error)
                 }
                 .collect { response ->
-                    handleUserDataSuccess(response)
-                    postLiveData.value = Result.Loading(false)
-
+                    userListLiveData.value = NetworkResponse.Loading(false)
+                    handleGetUserListResponse(response)
                 }
         }
 
     }
 
-    private fun handleUserDataSuccess(response: Response<List<User>>) {
+    private fun handleGetUserListResponse(response: Response<List<User>>) {
         if (response.isSuccessful) {
-            postLiveData.value = response.body()?.let { Result.Success(it) }
+            if (response.body() == null) {
+                userListLiveData.value = NetworkResponse.Error("Body is null")
+            } else {
+                userListLiveData.value = NetworkResponse.Success(response.body()!!)
+            }
         } else {
-            postLiveData.value = Result.Error("Message : ${response.message()} , Code : ${response.code()}")
+            userListLiveData.value =
+                NetworkResponse.Error("Message : ${response.message()} , Code : ${response.code()}")
         }
     }
 
-    private fun handleUserDataError(error: Throwable) {
-        postLiveData.value = Result.Error(errorMessage = error.localizedMessage ?: "Unknown Error")
+    private fun handleGetUserListError(error: Throwable) {
+        userListLiveData.value =
+            NetworkResponse.Error(errorMessage = error.localizedMessage ?: "Unknown Error")
     }
 }
