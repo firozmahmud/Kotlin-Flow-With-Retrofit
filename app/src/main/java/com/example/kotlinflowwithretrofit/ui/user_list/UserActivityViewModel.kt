@@ -28,7 +28,7 @@ class UserActivityViewModel : ViewModel() {
             UserRepository.getUsers()
                 .catch { error ->
                     userListLiveData.value = NetworkResult.Loading(false)
-                    handleGetUserListFailure(error)
+                    NetworkResult.Error(errorMessage = error.localizedMessage ?: "Unknown Error")
                 }
                 .collect { response ->
                     userListLiveData.value = NetworkResult.Loading(false)
@@ -38,10 +38,6 @@ class UserActivityViewModel : ViewModel() {
 
     }
 
-    private fun handleGetUserListFailure(error: Throwable) {
-        userListLiveData.value =
-            NetworkResult.Error(errorMessage = error.localizedMessage ?: "Unknown Error")
-    }
 
     private fun handleGetUserListResponse(response: Response<List<User>>) {
         if (response.isSuccessful && !response.body().isNullOrEmpty()) {
